@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Smart Asset Tracking And Management System</title>
+    <base href="/">
+    <meta name="keywords" content="HTML5 Theme" />
+    <meta name="description" content="Espire - Bootstrap 4 Admin Template">
+    <meta name="author" content="Theme_Nate">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="assets/images/logo/favicon.png">
+    <!-- CSS -->
+    <link href="assets/css/animate.min.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/themify-icons.css" rel="stylesheet">
+    <link href="assets/css/ei-icon.css" rel="stylesheet">
+    <!-- <link href="assets/css/bootstrap/bootstrap.css" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/pk/pk-all.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+  <script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+
+</head>
+<body>
+    <app-root></app-root>
+
+ <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=true_or_false&key=AIzaSyCHZV-ToxlUuJbLbuMNb7NrWhZYTgfT0L8"></script>
+
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
+<script src="assets/js/jquery.min.js"></script> 
+
+<script type="text/javascript">
+  
+    $(document).ready(function(){ 
+
+      $(document).on('click', '.add_more', function(){
+        $row=$(this).closest('.row');
+            $('.appended_main').append($('.reg_lug_main').clone().html());
+            $('.appended_main .add_more_main button').html('Delete');
+            $('.appended_main .add_more_main button').removeClass('btn btn-success add_more');
+            $('.appended_main .add_more_main button').addClass('btn btn-primary delete_appended');
+
+      });
+     // delete the appended div
+      $(document).on('click', '.delete_appended', function(){
+        $(this).closest('.appended').remove();
+      });
+      // data table
+      
+    setTimeout(function () {
+      
+        $('#alertsTable').DataTable();
+        $('#historyTable').DataTable();
+        //$('#stateTable').DataTable();
+      
+    }, 4000);
+
+    
+
+    
+});
+
+   // var map = new google.maps.Map(document.getElementById('googleMap'), {
+   //   zoom: 12,
+   //   center: new google.maps.LatLng(33.6, -116.24),
+   //   mapTypeId: google.maps.MapTypeId.ROADMAP
+   // });
+  
+   
+   
+</script>
+
+</body>
+</html>

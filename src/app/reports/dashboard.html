@@ -1,0 +1,523 @@
+<div id="" class="container-fluid">
+
+  <div class="row">
+    <div class="col-lg-12" style="margin-top:10px;">
+      <div class="col-lg-12">
+        <div class="widget card">
+
+          <form class="col-lg-12 ng-pristine ng-valid" id="">
+            <div class="card-block reporting-dashboard">
+              <div class="col-lg-4" style="display: inline-block;">
+                <h2 style="margin-left:1px;">Reports </h2>
+              </div>
+              <div class="col-lg-6" style="display: inline-block;">
+                <div class="">
+                <div class="col-lg-5" style="display: inline-block; padding-left: 0px">
+                  <div class="radio radio-inline radio-primary">
+                    <input type="radio" name="level" value="network" (click)="network()" [(ngModel)]="rLevel" id="form-6-1" data-id="network">
+                    <label for="form-6-1">Network </label>
+                  </div>
+                  <div class="radio radio-inline radio-primary">
+                    <input type="radio" name="level" value="site" (click)="siteing()" [(ngModel)]="rLevel" id="form-6-2" data-id="site">
+                    <label for="form-6-2">Site</label>
+                  </div>
+                </div>
+                
+                <div class="col-lg-7" style="display: inline-block;">
+                  <div class="" style="">
+                   <div class="form-group" id="reportSites" style="visibility: hidden">
+                        <label>Select Site</label>
+                        
+                    <select name="tSite" [(ngModel)]="tSite" class="form-control" style="" id="tSites">
+                        
+                        <option *ngFor="let tSites of tSites" [value]="tSites.values.site_id">{{tSites.values.site_name}}</option>    
+                    </select>   
+                    </div>
+                </div>       
+                </div>
+
+                </div>
+              </div>
+              <div class="col-lg-2">
+              </div>
+              <div class="col-lg-4" style="float:left">
+
+                <div class="timepicker-input input-icon form-group">
+                  <i class="ti-time"></i>
+                  <input type="text" class="form-control" name="ddate" [(ngModel)]="ddate" placeholder="Datepicker" onfocus="(this.type='date')">
+                </div>
+              </div>
+              <div class="col-lg-4" style="float:left">
+                
+                <div class="mrg-top-30">
+                  <div class="radio radio-inline radio-primary">
+                    <input type="radio" checked="checked" name="mode" value="daily" [(ngModel)]="rMode" id="form-5-1">
+                    <label for="form-5-1">Daily </label>
+                  </div>
+                  <div class="radio radio-inline radio-primary">
+                    <input type="radio" name="mode" value="weekly" [(ngModel)]="rMode" id="form-5-2">
+                    <label for="form-5-2">Weekly</label>
+                  </div>
+                  <div class="radio radio-inline radio-primary">
+                    <input type="radio" name="mode" value="monthly" [(ngModel)]="rMode" id="form-5-3">
+                    <label for="form-5-3">Monthly</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4" style="float:left">
+                <button (click)="searchReports()" class="btn btn-info">Search</button>
+                <!--<a (click)="captureScreen()" style="margin-top: 0px; color:white;" class="btn btn-info btn-lg float-lg-right">
+    <span class="glyphicon glyphicon-export"></span> Export
+  </a>-->
+
+                <button (click)="TAlerts()" class="btn btn-primary">Export to Excel</button>
+                <button (click)="captureScreen()" class="btn btn-primary">Export to PDF</button>
+                <i id="spinner" class="fa fa-spin  " style="font-size:24px"></i>
+              </div>
+
+
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="container-fluid">
+    <div id="pdf" class="row">
+      <div class="col-lg-4 col-md-12">
+        <div class="widget card">
+          <div id="pdfPie" class="card-block">
+            <h2 style="margin-left: 30px;"> Reports </h2>
+            <!-- <a href="#" style="margin-top: -42px;" class="btn btn-info btn-lg float-lg-right">
+             <span class="glyphicon glyphicon-export"></span> Export
+           </a>-->
+            <div class="card-block">
+              <!--- <div class="timepicker-input input-icon form-group">
+              <i class="ti-time"></i>
+              <input type="text" class="form-control" placeholder="Datepicker" #t (change)="dailyReports(t.value)" onfocus="(this.type='date')">
+            </div>-->
+
+
+              <span style="text-align:center">{{message}}</span>
+              <div class="mrg-top-40">
+
+                <canvas height="230" baseChart [data]="donutChartData" [labels]="donutChartLabels" [chartType]="donutChartType" [legend]="donutChartLegend" [colors]="donutChartColors" [options]="dountChartOptions"></canvas>
+                <!-- <canvas height="230" baseChart [data]="donutChartDataNull" [labels]="donutChartLabels" [chartType]="donutChartType"[legend] = "donutChartLegend" [colors]="donutChartColorsNull" [options]="dountChartOptions"></canvas>  -->
+              </div>
+              <div *ngIf="message == ''" class="widget-legends mrg-top-30">
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-info"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ checkPercent }}%</b> Check-in</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-success"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ transferPercent }}%</b> Transfer Loading</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-warning"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ transitPercent }}%</b> In-Transit</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-successGreen"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ offPercent }}%</b> Off-loading</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-infoBlue"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ claimPercent }}%</b> Baggage Claim</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-successLightGreen"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ outPercent }}%</b> Check-out</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-danger"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ missPercent }}%</b> Missing</span>
+                </div>
+                
+              </div>
+              <div *ngIf="message != ''" class="widget-legends mrg-top-30">
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-info"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> Check-in</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-success"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> Transfer Loading</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-warning"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> In-Transit</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-successGreen"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> Off-loading</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-infoBlue"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> Baggage Claim</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-successLightGreen"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> Check-out</span>
+                </div>
+                <div class="relative mrg-top-15 reporting">
+                  <span class="status border-danger"> </span>
+                  <span class="pdd-left-20 font-size-16"><b class="text-dark">0%</b> Missing</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="widget card">
+          <div class="card-block" style="min-height: 704px">
+            <h2 style="margin-left:1px;">Total Alerts </h2>
+            <div  id="columnchart_values" style="width: 100%; height: 525px;"></div>
+            
+          </div>
+        </div>
+      </div>
+      <!--<div class="col-lg-4 col-md-12">
+      <div class="widget card">
+        <div class="card-block">
+          <h2>Weekly Reports </h2>
+          <a href="#" style="margin-top: -42px;" class="btn btn-info btn-lg float-lg-right">
+            <span class="glyphicon glyphicon-export"></span> Export
+          </a>
+          <div class="card-block">
+
+            <div class="timepicker-input input-icon form-group">
+              <i class="ti-time"></i>
+              <input type="text" class="form-control" placeholder="Datepicker" #w (change)="weeklyReports(w.value)" onfocus="(this.type='date')">
+            </div>
+            <span style="text-align:center">{{messageW}}</span>
+            <div class="mrg-top-40">
+
+              <canvas height="230" baseChart [data]="donutChartDataWeek" [labels]="donutChartLabels" [chartType]="donutChartType" [legend]="donutChartLegend" [colors]="donutChartColors" [options]="dountChartOptions"></canvas>
+            </div>
+            <div *ngIf="messageW == ''" class="widget-legends mrg-top-30">
+              <div class="relative mrg-top-15 reporting">
+                <span class="status info"> </span>
+                <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ registeredUndiscoveredPerW }}%</b> Registered Undiscovered</span>
+              </div>
+              <div class="relative mrg-top-15 reporting">
+                <span class="status primary"> </span>
+                <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ registeredDiscoveredPerW }}%</b> Registered Discovered</span>
+              </div>
+              <div class="relative mrg-top-15 reporting">
+                <span class="status success"> </span>
+                <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ unauthorizedEntryPerW }}%</b> Unauthorized Entery</span>
+              </div>
+              <div class="relative mrg-top-15 reporting">
+                <span class="status"> </span>
+                <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ StolenPerW }}%</b> Stolen</span>
+              </div>
+              <div class="relative mrg-top-15 reporting">
+                <span class="status warning"> </span>
+                <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ inTransitPerW }}%</b> In Transit</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>-->
+      <!-- <div class="col-lg-4 col-md-12">
+       <div class="widget card">
+         <div class="card-block">
+           <h2>Monthly Reports </h2>
+           <a href="#" style="margin-top: -42px;" class="btn btn-info btn-lg float-lg-right">
+             <span class="glyphicon glyphicon-export"></span> Export
+           </a>
+           <div class="card-block">
+             <div class="timepicker-input input-icon form-group">
+               <i class="ti-time"></i>
+               <input type="text" class="form-control" placeholder="Datepicker" #m (change)="monthlyReports(m.value)" onfocus="(this.type='date')">
+
+             </div>
+             <span style="text-align:center">{{messageM}}</span>
+             <div class="mrg-top-40">
+               <canvas height="230" baseChart [data]="donutChartDataMonth" [labels]="donutChartLabels" [chartType]="donutChartType" [legend]="donutChartLegend" [colors]="donutChartColors" [options]="dountChartOptions"></canvas>
+             </div>
+             <div *ngIf="messageM == ''" class="widget-legends mrg-top-30">
+               <div class="relative mrg-top-15 reporting">
+                 <span class="status info"> </span>
+                 <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ registeredUndiscoveredPerM }}%</b> Registered Undiscovered</span>
+               </div>
+               <div class="relative mrg-top-15 reporting">
+                 <span class="status primary"> </span>
+                 <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ registeredDiscoveredPerM }}%</b> Registered Discovered</span>
+               </div>
+               <div class="relative mrg-top-15 reporting">
+                 <span class="status success reporting"> </span>
+                 <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ unauthorizedEntryPerM }}%</b> Unauthorized Entery</span>
+               </div>
+               <div class="relative mrg-top-15 reporting">
+                 <span class="status"> </span>
+                 <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ StolenPerM }}%</b> Stolen</span>
+               </div>
+               <div class="relative mrg-top-15 reporting">
+                 <span class="status warning"> </span>
+                 <span class="pdd-left-20 font-size-16"><b class="text-dark">{{ inTransitPerM }}%</b> In Transit</span>
+               </div>
+             </div>
+           </div>
+
+         </div>
+       </div>
+     </div>-->
+    </div> 
+    <div class="row">
+      <div class="col-lg-12 col-md-6">
+
+        <div class="widget card">
+          <div class="card-block">
+            <div class="col-lg-12">
+              <h6>ALERTS</h6>
+              <div id="" style="height: 470px !important; " class="scroll-alerts">
+
+                <table id="divAlerts" class="table" #table>
+                  <thead class="black white-text">
+                    <tr>
+                      <th style="text-align: center;">Priority</th>
+                      <th style="text-align: center;">Asset Inventory No.</th>
+                      <th style="text-align: center;">Site Name</th>
+
+                      <th style="text-align: center;">Event</th>
+                      <th style="text-align: center;">Start</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    <tr *ngFor="let alerts of alerted">
+
+
+                            <td *ngIf="alerts.event  == 'Check-in'" style="line-height: 1.1; text-align: center">
+
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/info.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'Check-in Missing'" style="line-height: 1.1; text-align: center">
+
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'Transfer Loading'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-warning-color" style="font-size:30px"><img src="assets/images/success.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'Transfer Loading Missing'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-warning-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'In-Transit'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-info-color" style="font-size:30px"><img src="assets/images/warning.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'In-Transit Missing'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-info-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'Off-loading'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/successGreen.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event  == 'Off-loading Missing'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event == 'Baggage Claim'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/infoBlue.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event == 'Baggage Claim Missing'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event == 'Check-out'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/successLightGreen.png"> </i>
+                            </td>
+                                 
+                            <td *ngIf="alerts.event == 'Link Down'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/grayy.png"> </i>
+                            </td>
+                            <td *ngIf="alerts.event == 'Link Up'" style="line-height: 1.1; text-align: center">
+                                <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/successDarkGreen.png"> </i>
+                            </td>
+                            <td style="line-height: 1.1; vertical-align: middle; text-align: center">
+                                {{alerts.asset_inventory_no}}
+                            </td>
+                            <td style="line-height: 1.1; vertical-align: middle; text-align: center">
+                                {{alerts.site_name}}
+                            </td>
+                            <td style="line-height: 1.1; vertical-align: middle; text-align: center">
+                                {{alerts.event}}
+                            </td>
+                            <td style="line-height: 1.1; vertical-align: middle; text-align: center">
+                                {{alerts.timestamp | date: 'yyyy/MM/dd h:mm:ss a'}}
+                            </td>
+
+                    </tr>
+                    <tr>
+                      <td *ngIf="alertsMessage != ''"> {{alertsMessage}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-6">
+
+        <div class="widget card">
+          <div class="card-block">
+            <div class="col-lg-12">
+              <h6>BATTERY ALERTS</h6>
+              <div id="" style="height: 470px !important; " class="scroll-alerts">
+
+                <table id="divAlerts" class="table" #table>
+                  <thead class="black white-text">
+                    <tr>
+                      <th style="text-align: center;">Tag Name</th>
+                      <th style="text-align: center;">Event</th>
+                      <th style="text-align: center;width:15%;">Asset Inventory No.</th>
+                      
+                      <th style="text-align: center;">Site Name</th>
+                      
+                      <th style="text-align: center;">Time</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                    <tr *ngFor="let alerts of batteryAlerts">
+
+
+                      <!--<td *ngIf="alerts.AN  == 'Stolen' || alerts.AN == 'tolen'" style="line-height: 0.8;">
+
+                              <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/dangerr.png"> </i>
+                          </td>
+                          <td *ngIf="alerts.AN  == 'Unauthorized entry' || alerts.AN == 'nauthorized entry'" style="line-height: 0.8;">
+                              <i class="alerts-warning-color" style="font-size:30px"><img src="assets/images/warningg.png"> </i>
+                          </td>
+                          <td *ngIf="alerts.AN  == 'Intransit'" style="line-height: 0.8;">
+                              <i class="alerts-info-color" style="font-size:30px"><img src="assets/images/infoo.png"> </i>
+                          </td>
+                          <td *ngIf="alerts.AN  == 'Recovered' || alerts.AN == 'ecovered'" style="line-height: 0.8;">
+                              <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/successs.png"> </i>
+                          </td>
+
+                          <td *ngIf="alerts.AN == 'Tempering Detected' || alerts.AN == 'empering Detected'" style="line-height: 0.8;">
+                              <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/orangee.png"> </i>
+                          </td>
+                          <td *ngIf="alerts.AN == 'Link Down' || alerts.AN == 'ink Down'" style="line-height: 0.8;">
+                              <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/grayy.png"> </i>
+                          </td>
+                          <td *ngIf="alerts.AN == 'Link Up' || alerts.AN == 'ink Up'" style="line-height: 0.8;">
+                              <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/darkgreen.png"> </i>
+                          </td>-->
+
+                           <td style="text-align: center;    line-height: 0.8;">
+                                        {{alerts.tag_name}}
+                                    </td>
+                                    <td style="text-align: center;    line-height: 0.8;">
+                                        {{alerts.event}}
+                                    </td>
+                           <td style="text-align: center;    line-height: 0.8;">
+                                        {{alerts.asset_inventory_no}}
+                                    </td>
+                                     
+                                     <td style="text-align: center;    line-height: 0.8;">
+                                        {{alerts.site_name}}
+                                    </td>
+                                   
+                                    <td style="text-align: center;    line-height: 0.8;">
+                                        {{alerts.timestamp | date: 'yyyy/MM/dd h:mm:ss a'}}
+                                    </td>
+                    </tr>
+                    <tr>
+                      <td *ngIf="alertsMessage != ''"> {{alertsMessage}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <!--<div class="container-fluid mrg-top-20">
+    <div class="page-title">
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Alerts</h4>
+            <a href="#" style="margin-top: -20px;" class="btn btn-info btn-lg float-lg-right">
+              <span class="glyphicon glyphicon-export"></span> Export
+            </a>
+          </div>
+
+          <div class="card-block">
+            <div class="table-overflow">
+
+              <table id="alertsTable" class="table table-lg table-hover">
+                <thead>
+                  <tr>
+                    <th style="text-align: center;">Priority</th>
+                    <th style="text-align: center;">Event</th>
+                    <th style="text-align: center;">Start</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <tr *ngFor="let alerts of alerts">
+
+                    <td *ngIf="alerts.values.last_alert_id == '1'" style="text-align: center;">
+
+                      <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/dangerr.png"> </i>
+                    </td>
+                    <td *ngIf="alerts.values.last_alert_id == '2'" style="text-align: center;">
+                      <i class="alerts-warning-color" style="font-size:30px"><img src="assets/images/warningg.png"> </i>
+                    </td>
+                    <td *ngIf="alerts.values.last_alert_id == '3'" style="text-align: center;">
+                      <i class="alerts-info-color" style="font-size:30px"><img src="assets/images/infoo.png"> </i>
+                    </td>
+                    <td *ngIf="alerts.values.last_alert_id == '4'" style="text-align: center;">
+                      <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/successs.png"> </i>
+                    </td>
+                    <td *ngIf="alerts.values.last_alert_id == '5'" style="text-align: center;">
+                      <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/successs.png"> </i>
+                    </td>
+                    <td style="text-align: center;">{{alerts.values.event}}</td>
+                    <td style="text-align: center;">{{alerts.timestamp | date: 'yyyy/MM/dd h:mm:ss a'}}</td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>-->
+
+  </div>
+  </div>

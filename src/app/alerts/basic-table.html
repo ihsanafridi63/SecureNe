@@ -1,0 +1,156 @@
+<div class="container-fluid mrg-top-20">
+	<div class="page-title">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+			   <div class="card-heading border bottom">
+                 <h4 class="card-title">Alerts</h4>
+               </div>
+
+				<div class="card-block" style="min-height:400px">
+					<!-- <p>Sensors and Geofence Alerts</p> -->
+				<div id="alertsss-spinner" style="margin:auto; width:100px; height:100px; position:absolute; top:0; bottom: 0; left:0; right:0">
+      	           <i class="fa fa-spin fa-spinner" style="font-size:100px"></i>
+      	        </div>
+					<div class="table-overflow">
+						
+						<table id="alertsTables" class="table table-lg table-hover">
+							<thead>
+								<tr>
+									<th style="width:15%">Priority</th>
+                                    <th style="width:15%">Asset Inventory No.</th>
+                                    <th style="width:15%">Site Name</th>
+                                    <th style="width:15%">Event</th>
+                                    <th style="width:15%">Start</th>
+								</tr>
+							</thead>
+							<tbody style="display: none">
+								
+								<tr *ngFor="let alerts of alerted">
+
+                                    <td *ngIf="alerts.event  == 'Check-in'" style="line-height: 1.1;">
+
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/info.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'Check-in Missing'" style="line-height: 1.1;">
+
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'Transfer Loading'" style="line-height: 1.1;">
+                                        <i class="alerts-warning-color" style="font-size:30px"><img src="assets/images/success.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'Transfer Loading Missing'" style="line-height: 1.1;">
+                                        <i class="alerts-warning-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'In-Transit'" style="line-height: 1.1;">
+                                        <i class="alerts-info-color" style="font-size:30px"><img src="assets/images/warning.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'In-Transit Missing'" style="line-height: 1.1;">
+                                        <i class="alerts-info-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'Off-loading'" style="line-height: 1.1;">
+                                        <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/successGreen.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event  == 'Off-loading Missing'" style="line-height: 1.1;">
+                                        <i class="alerts-success-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event == 'Baggage Claim'" style="line-height: 1.1;">
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/infoBlue.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event == 'Baggage Claim Missing'" style="line-height: 1.1;">
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/danger.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event == 'Check-out'" style="line-height: 1.1;">
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/successLightGreen.png"> </i>
+                                    </td>
+                                         
+                                    <td *ngIf="alerts.event == 'Link Down'" style="line-height: 1.1;">
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/grayy.png"> </i>
+                                    </td>
+                                    <td *ngIf="alerts.event == 'Link Up'" style="line-height: 1.1;">
+                                        <i class="alerts-danger-color" style="font-size:30px"><img src="assets/images/successDarkGreen.png"> </i>
+                                    </td>
+                                    <td style="line-height: 1.1; vertical-align: middle;">
+                                        {{alerts.asset_inventory_no}}
+                                    </td>
+                                    <td style="line-height: 1.1; vertical-align: middle;">
+                                        {{alerts.site_name}}
+                                    </td>
+                                    <td style="line-height: 1.1; vertical-align: middle;">
+                                        {{alerts.event}}
+                                    </td>
+                                    <td style="line-height: 1.1; vertical-align: middle;">
+                                        {{alerts.timestamp | date: 'yyyy/MM/dd h:mm:ss a'}}
+                                    </td>
+                                </tr>
+									
+							</tbody>
+						</table>
+					</div>
+				   
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+			   <div class="card-heading border bottom">
+                 <h4 class="card-title">Battery Alerts</h4>
+               </div>
+
+				<div class="card-block" style="min-height:400px">
+					<!-- <p>Sensors and Geofence Alerts</p> -->
+				<div id="battery-spinner" style="margin:auto; width:100px; height:100px; position:absolute; top:0; bottom: 0; left:0; right:0">
+      	           <i class="fa fa-spin fa-spinner" style="font-size:100px"></i>
+      	        </div>
+					<div class="table-overflow">
+						
+						<table id="batteryTable" class="table table-lg table-hover">
+							<thead>
+								<tr>
+									<th style="width:15%">Tag Name</th>
+									<th style="width:15%">Event</th>
+									<th style="width:15%">Asset Inventory No.</th>
+									<th style="width:15%">Site Name</th>
+									
+									<th style="width:15%">Time</th>
+								</tr>
+							</thead>
+							<tbody style="display: none">
+								
+								<tr *ngFor="let Balert of Balerts">
+
+                                  
+                                     <td>
+                                        {{Balert.tag_name}}
+                                    </td>
+                                      <td>
+                                        {{Balert.event}}
+                                    </td>
+                                     <td>
+                                        {{Balert.asset_inventory_no}}
+                                    </td>
+                                   
+                                     <td>
+                                        {{Balert.site_name}}
+                                    </td>
+                                   
+                                    <td>
+                                        {{Balert.timestamp | date: 'yyyy/MM/dd h:mm:ss a'}}
+                                    </td>
+                                </tr>
+									
+							</tbody>
+						</table>
+					</div>
+				   
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>

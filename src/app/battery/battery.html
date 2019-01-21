@@ -1,0 +1,63 @@
+<div class="container-fluid mrg-top-20">
+	<div class="page-title">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+			   <div class="card-heading border bottom">
+                 <h4 class="card-title">Battery Information</h4>
+               </div>
+
+				<div class="card-block" style="min-height:400px">
+					<!-- <p>Sensors and Geofence Alerts</p> -->
+				<div id="batterys-spinner" style="margin:auto; width:100px; height:100px; position:absolute; top:0; bottom: 0; left:0; right:0">
+      	           <i class="fa fa-spin fa-spinner" style="font-size:100px"></i>
+      	        </div>
+					<div class="table-overflow">
+						
+						<table id="batteryTables" class="table table-lg table-hover">
+							<thead>
+								<tr>
+                                    <th style="width:15%">Tag Name</th>
+                                    <th style="width:15%">Battery Level</th>
+                                    <th style="width:15%">Asset Inventory No.</th>
+                                    <th style="width:15%">Site Name</th>
+									<th style="width:15%">Time</th>
+								</tr>
+							</thead>
+							<tbody style="display: none">
+								
+								<tr *ngFor="let alerts of battery">
+
+                                     <td>
+                                        {{alerts.tag_name}}
+                                    </td>
+                                     <td>
+                                        {{alerts.battery_level}} %
+                                    </td>
+                                     <td>
+                                        {{alerts.asset_inventory_no}}
+                                    </td>
+                                     <td>
+                                        {{alerts.site_name}}
+                                    </td>
+                                   
+                                   
+                                    <td>
+                                        {{alerts.timestamp | date: 'yyyy/MM/dd h:mm:ss a'}}
+                                    </td>
+                                </tr>
+									
+							</tbody>
+						</table>
+					</div>
+				   
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+	
+</div>

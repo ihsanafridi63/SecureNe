@@ -1,0 +1,480 @@
+<div class="app" [ngClass]="
+    {
+        'is-collapsed': app.layout.isMenuCollapsed,
+        'is-opened': app.layout.isMenuOpened,
+        'rtl' : app.layout.rtlActived
+    }">
+    <div class="layout" [ngClass]="headerSelected">
+
+        <div [ngClass]="sidenavSelected">
+            <!-- Side Nav START -->
+            <!-- //Side-Nav Large Screen -->
+            <div class="side-nav large-screen" sideBar>
+                <div class="side-nav-inner">
+                    <div class="side-nav-logo" style="border-bottom: 1px solid #ccc;">
+                        <a href="" [routerLink]="['/dashboard']">
+                            <div class="logo logo-dark" style="background-image: url('assets/images/logo/logo.png')"></div>
+                            <!-- <div class="logo logo-white" style="color:red; background-image: url('assets/images/logo/logo-white.png')"></div> -->
+                        </a>
+                        <div class="mobile-toggle side-nav-toggle">
+                            <a href="javascript:void(0);" (click)="app.layout.isMenuCollapsed = !app.layout.isMenuCollapsed">
+                                <i class="ti-arrow-circle-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="side-nav-menu scrollable" style="overflow-y: scroll !important">
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          <span>
+                            <a class="mrg-top-30" href="" [routerLink]="['/dashboard']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center">
+                                <span class="icon-holder">
+                                    <i class="ti-home"></i>
+                                </span>
+                                <span class="title">Dashboard</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px; padding-top: 6px">Dashboard</div>
+                            </a>
+                          </span>
+                        </li>
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          <span>
+                            <a class="mrg-top-30" href="" [routerLink]="['/alerts']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center">
+                                <span class="icon-holder">
+                                    <i class="ti-alert"></i>
+                                </span>
+                                <span class="title">Alerts</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px; padding-top: 6px">Alerts</div>
+                            </a>
+                          </span>
+                        </li>
+      
+                 <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                      <span>
+                        <a class="" href="" [routerLink]="['/manage-assets']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center"> 
+                            <span class="icon-holder">
+                                <i class="ti-bag"></i>
+                            </span>
+                            <span class="title">Manage Assets</span>
+                            <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                              <span style="display:block; margin-top: 5px">Manage</span>
+                              <span style="display:block; margin-top: -5px;">Assets</span>
+                            </div>
+                        </a>
+                      </span>
+                 </li>
+                 <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                      <span>
+                        <a class="" href="" [routerLink]="['/manage-tenants']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center"> 
+                            <span class="icon-holder">
+                                <i class="ti-id-badge"></i>
+                            </span>
+                            <span class="title">Manage Tenants</span>
+                            <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                              <span style="display:block; margin-top: 5px">Manage</span>
+                              <span style="display:block; margin-top: -5px;">Tenants</span>
+                            </div>
+                        </a>
+                      </span>
+                 </li>
+                 <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                      <span>
+                        <a class="" href="" [routerLink]="['/manage-users']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center"> 
+                            <span class="icon-holder">
+                                <i class="ti-user"></i>
+                            </span>
+                            <span class="title">Manage Users</span>
+                            <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                              <span style="display:block; margin-top: 5px">Manage</span>
+                              <span style="display:block; margin-top: -5px;">Users</span>
+                            </div>
+                        </a>
+                      </span>
+                 </li>
+                 <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                      <span>
+                        <a class="" href="" [routerLink]="['/manage-devices']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center"> 
+                            <span class="icon-holder">
+                                <i class="ti-harddrive"></i>
+                            </span>
+                            <span class="title">Manage Devices</span>
+                            <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                              <span style="display:block; margin-top: 5px">Manage</span>
+                              <span style="display:block; margin-top: -5px;">Devices</span>
+                            </div>
+                        </a>
+                      </span>
+                 </li>
+                        
+                        
+                         <li class="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                            <span>
+                        <a class="" href="" [routerLink]="['/asset-history']" style="padding: 8px 0px; display: inline-block; width:100%; text-align: center"> 
+                                <span class="icon-holder">
+                                    <i class="ti-clipboard"></i>
+                                </span>
+                                <span class="title">Asset History</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                                  <span style="display:block; margin-top: 5px">Asset</span>
+                                  <span style="display:block; margin-top: -5px;">History</span>
+                                </div>
+                        </a>
+                            </span>
+                        </li>
+                        
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          <span>
+                            <a class="" href="" [routerLink]="['/battery']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center"> 
+                                <span class="icon-holder">
+                                    <i class="ti-agenda"></i>
+                                </span>
+                                <span class="title">Battery</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px; padding-top: 6px">Battery</div>
+                            </a>
+                          </span>
+                        </li>
+                        
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          <span>
+                            <a class="" href="" [routerLink]="['/reports']" style="padding: 10px 0px; display: inline-block; width:100%; text-align: center"> 
+                                <span class="icon-holder">
+                                    <i class="ti-bar-chart-alt"></i>
+                                </span>
+                                <span class="title">Reports</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px; padding-top: 6px">Reports</div>
+                            </a>
+                          </span>
+                        </li>
+                  
+                    </ul>
+                </div>
+            </div>
+            <!-- side-nav small screen -->
+            <div class="side-nav small-screen" sideBar>
+                <div class="side-nav-inner">
+                    <div class="side-nav-logo" style="border-bottom: 1px solid #ccc;">
+                        <a href="" [routerLink]="['/dashboard']">
+                            <div class="logo logo-dark" style="background-image: url('assets/images/logo/logo.png')"></div>
+                            <!-- <div class="logo logo-white" style="color:red; background-image: url('assets/images/logo/logo-white.png')"></div> -->
+                        </a>
+                        <div class="mobile-toggle side-nav-toggle">
+                            <a href="javascript:void(0);" (click)="app.layout.isMenuCollapsed = !app.layout.isMenuCollapsed">
+                                <i class="ti-arrow-circle-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="side-nav-menu scrollable">
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          
+                            <a class="mrg-top-30" href="" [routerLink]="['/dashboard']" style="padding: 5px 0px">
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-home"></i>
+                                </span>
+                                <span class="title">Dashboard</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">Dashboard</div>
+                            </a>
+                          
+                        </li>
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          
+                            <a class="mrg-top-30" href="" [routerLink]="['/alerts']" style="padding: 5px 0px">
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-alert"></i>
+                                </span>
+                                <span class="title">Alerts</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">Alerts</div>
+                            </a>
+                          
+                        </li>
+                
+                        
+                        
+                        <li class="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                            
+                            <a class="" href="" [routerLink]="['/manage-assets']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-bag"></i>
+                                </span>
+                                <span class="title">Manage Assets</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                                  <span style="display:block;">Manage</span>
+                                  <span style="display:block; margin-top: -5px;">Assets</span>
+                                </div>
+                            </a>
+                            
+                        </li>
+                        <li class="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                            
+                            <a class="" href="" [routerLink]="['/manage-tenants']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-id-badge"></i>
+                                </span>
+                                <span class="title">Manage Tenants</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                                  <span style="display:block;">Manage</span>
+                                  <span style="display:block; margin-top: -5px;">Tenants</span>
+                                </div>
+                            </a>
+                            
+                        </li>
+                        <li class="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                            
+                            <a class="" href="" [routerLink]="['/manage-users']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-user"></i>
+                                </span>
+                                <span class="title">Manage Users</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                                  <span style="display:block;">Manage</span>
+                                  <span style="display:block; margin-top: -5px;">Users</span>
+                                </div>
+                            </a>
+                            
+                        </li>
+                        <li class="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                            <a class="" href="" [routerLink]="['/manage-devices']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-harddrive"></i>
+                                </span>
+                                <span class="title">Manage Devices</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                                  <span style="display:block;">Manage</span>
+                                  <span style="display:block; margin-top: -5px;">Devices</span>
+                                </div>
+                            </a>                            
+                        </li>
+                         <li class="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                            
+                            <a class="" href="" [routerLink]="['/asset-history']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-clipboard"></i>
+                                </span>
+                                <span class="title">Asset History</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">
+                                  <span style="display:block;">Asset</span>
+                                  <span style="display:block; margin-top: -5px;">History</span>
+                                </div>
+                            </a>  
+                        </li>
+
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          
+                            <a class="" href="" [routerLink]="['/battery']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-agenda"></i>
+                                </span>
+                                <span class="title">Battery</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">Battery</div>
+                            </a>
+                          
+                        </li>
+                        
+                        <li clas="nav-item" routerLinkActive="active" style="border-bottom: 2px solid #f9f2f2;">
+                          
+                            <a class="" href="" [routerLink]="['/reports']" style="padding: 5px 0px"> 
+                                <span class="icon-holder" style="margin-right: 10px">
+                                    <i class="ti-bar-chart-alt"></i>
+                                </span>
+                                <span class="title">Reports</span>
+                                <div class="titles" style="text-align: center; padding-bottom: 11px;">Reports</div>
+                            </a>
+                          
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+
+                <!-- Top Nav START -->
+                <div class="header navbar">
+                    <div class="header-container">
+                        <ul class="nav-left">
+                            <li>
+                                <a class="side-nav-toggle" href="javascript:void(0);" (click)="app.layout.isMenuCollapsed = !app.layout.isMenuCollapsed">
+                                    <i class="ti-view-grid .d-lg-none .d-xl-block"></i>
+                                </a>
+                            </li>
+                     
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                
+                                    <div class="user-info">
+                                        <span class="name pdd-right-5 admin-name">
+                                        <a href="" (click)="logout()" style="font-size:20px">
+                                            <i class="ti-power-off pdd-right-10">
+                                            <span style="font-size: 22px; margin-left: 5px">Logout</span>
+                                            </i>
+                                            
+                                            
+                                        </a>
+                                        </span>
+                                       
+                                    </div>
+                                </a>
+                                
+                            </li>
+                            <!-- <li class="notifications dropdown">
+                                <span class="counter">2</span>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-bell"></i>
+                                </a>
+                                <ul class="dropdown-menu ">
+                                    <li class="notice-header">
+                                        <i class="ti-bell pdd-right-10"></i>
+                                        <span>Notifications</span>
+                                    </li>
+                                    <ul [perfectScrollbar] class="list-info overflow-y-auto relative scrollable">
+                                        <li>
+                                            <a href="">
+                                                <img class="thumb-img" src="assets/images/avatars/thumb-5.jpg" alt="">
+                                                <div class="info">
+                                                    <span class="title">
+                                                        <span class="font-size-14 text-semibold">Jennifer Watkins</span> 
+                                                        <span class="text-gray">commented on your <span class="text-dark">post</span></span> 
+                                                    </span>
+                                                    <span class="sub-title">5 mins ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <img class="thumb-img" src="assets/images/avatars/thumb-4.jpg" alt="">
+                                                <div class="info">
+                                                    <span class="title">
+                                                        <span class="font-size-14 text-semibold">Samuel Field</span> 
+                                                        <span class="text-gray">likes your <span class="text-dark">photo</span></span> 
+                                                    </span>
+                                                    <span class="sub-title">8 hours ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span class="thumb-img bg-primary">
+                                                        <span class="text-white">M</span>
+                                                    </span>
+                                                <div class="info">
+                                                    <span class="title">
+                                                        <span class="font-size-14 text-semibold">Michael Birch</span> 
+                                                        <span class="text-gray">likes your <span class="text-dark">photo</span></span> 
+                                                    </span>
+                                                    <span class="sub-title">5 hours ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span class="thumb-img bg-success">
+                                                    <span class="text-white"><i class="fa fa-paper-plane-o"></i></span>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="title">
+                                                        <span class="font-size-14 text-semibold">Message sent</span>
+                                                    </span>
+                                                    <span class="sub-title">8 hours ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span class="thumb-img bg-info">
+                                                    <span class="text-white"><i class="ti-user"></i></span>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="title">
+                                                        <span class="font-size-14 text-semibold">Admin</span> 
+                                                        <span class="text-gray">Welcome on board</span> 
+                                                    </span>
+                                                    <span class="sub-title">8 hours ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <li class="notice-footer">
+                                        <span>
+                                            <a href="" class="text-gray">Check all notifications <i class="ei-right-chevron pdd-left-5 font-size-10"></i></a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li> -->
+                            <li>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Top Nav END -->
+
+                
+
+                <!-- Theme Configurator START -->
+                <div class="theme-configurator" [ngClass]="{'theme-config-open' : app.layout.themeConfigOpen}">
+                    <div class="configurator-wrapper">
+                        <div class="config-header">
+                            <h4 class="config-title">Config Panel</h4>
+                            <button class="config-close" (click)="app.layout.themeConfigOpen = !app.layout.themeConfigOpen">
+                                <i class="ti-close"></i>
+                            </button>
+                        </div>
+                        <div class="config-body">
+                            <div class="mrg-btm-30">
+                                <p class="lead font-weight-normal">Header Color</p>
+                                <div class="theme-colors {{headerTheme}}" *ngFor="let headerTheme of headerThemes">
+                                    <input type="radio" id="{{headerTheme}}"  name="theme" value="{{headerTheme}}" (click)="changeHeader(headerTheme)">
+                                    <label for="{{headerTheme}}"></label>
+                                </div>
+                            </div>
+                            <div class="mrg-btm-30">
+                                <p class="lead font-weight-normal">Sidebar Color</p>
+                                <div class="theme-colors {{sidenavTheme}}" *ngFor="let sidenavTheme of sidenavThemes">
+                                    <input type="radio" id="{{sidenavTheme}}" name="sidenav" (click)="changeSidenav(sidenavTheme)">
+                                    <label for="{{sidenavTheme}}"></label>
+                                </div>
+                            </div>
+                            <div class="mrg-btm-30">
+                                <p class="lead font-weight-normal no-mrg-btm">RTL</p>
+                                <div class="toggle-checkbox checkbox-inline toggle-sm mrg-top-10">
+                                    <input type="checkbox" name="rtl-toogle" id="rtl-toogle" (click)="app.layout.rtlActived = !app.layout.rtlActived">
+                                    <label for="rtl-toogle"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <!-- Theme Configurator END -->
+
+                <!-- Theme Toggle Button START -->
+                <button class="theme-toggle btn btn-rounded btn-icon" (click)="app.layout.themeConfigOpen = !app.layout.themeConfigOpen">
+                    <i class="ti-palette"></i>
+                </button>
+                <!-- Theme Toggle Button END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <router-outlet></router-outlet>
+                </div>    
+                <!-- Content Wrapper END -->
+                  <!-- Footer START -->
+                    <footer class="content-footer" style="margin-top: 20px">
+                        <div class="container">
+                            <div class="footer">
+                                <div class="copyright">
+                                    <span>Copyright © 2019 <b class="text-dark">SecureNe</b>. All rights reserved.</span>
+                                    <span class="go-right">
+                                       <!--  <a href="" class="text-gray mrg-right-15">Term & Conditions</a>
+                                        <a  href="" class="text-gray">Privacy & Policy</a> -->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>                
+            </div>
+            <!-- Page Container END -->
+
+         </div>
+    </div>  
+     
+</div>

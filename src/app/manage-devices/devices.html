@@ -1,0 +1,303 @@
+<div class="container-fluid mrg-top-20">
+	<div class="page-title">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+			    <div class="card-heading border bottom">
+              <h4 class="card-title">Manage Devices</h4>
+          </div>
+          <div class="detail-header">
+                  <ul class="nav nav-tabs" role="tablist" style="width:265px !important">
+                    <li class="nav-item" style="">
+                      <a href="#manage_device" class="active" aria-controls="manage_device" role="tab" data-toggle="tab">Manage Device</a>
+                    </li>
+                    <li class="nav-item" style="">
+                      <a href="#manage_tag" aria-controls="manage_tag" role="tab" data-toggle="tab">Manage Tag</a>
+                    </li>
+                  </ul>
+          </div>   
+				<div class="card-block" style="min-height:480px">
+
+                  <div class="tab-content" style="">
+                     <div role="tabpanel" class="tab-pane active" id="manage_device">
+                      <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#addDeviceModal">
+                       Add Device
+                      </button>
+                      <div id="devices-spinner" style="margin:auto; width:100px; height:100px; position:absolute; top:0; bottom: 0; left:0; right:0">
+                                 <i class="fa fa-spin fa-spinner" style="font-size:100px"></i>
+                       </div>
+                        <div class="table-overflow">
+                          
+                          <table id="devicesTable" class="table table-lg table-hover">
+                            <thead>
+                              <tr>
+                                    <th>Sr#</th>
+                                    <th>Device Id</th>
+                                    <th>Site Name</th>
+                                    <th>Top Right Lat</th>
+                                    <th>Top Right Lng</th>
+                                    <th>Bottom Left Lat</th>
+                                    <th>Bottom Left Lng</th>
+                                    <th>City</th>
+                                    <th>Region</th>
+                                    <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody style="display: none">
+                              
+                              <tr *ngFor="let devices of devicesed; let i=index">
+                                  <td>
+                                      {{i+1}}
+                                  </td>
+                                  
+                                  <td>
+                                      {{devices.site_id}}
+                                  </td>
+
+                                  <td>
+                                      {{devices.site_name}}
+                                  </td>
+                                  <td>
+                                      {{devices.top_right_lat}}
+                                  </td>
+
+                                  <td>
+                                      {{devices.top_right_lng}}
+                                  </td>
+                                  <td>
+                                      {{devices.bottom_left_lat}}
+                                  </td>
+
+                                  <td>
+                                      {{devices.bottom_left_lng}}
+                                  </td>
+                                  <td>
+                                      {{devices.city}}
+                                  </td>
+
+                                  <td>
+                                      {{devices.region}}
+                                  </td>
+                                  
+                                  
+                                  <td style="">
+                                      
+                                      <i class="ti-pencil-alt" (click)="getDeviceIdToBeUpdate(devices.site_id)" style="margin-left: 10px" data-toggle="modal" data-target="#updateDeviceModal"></i>
+                                      
+                                      <i class="ti-trash" data-toggle="modal" data-target="#deleteDeviceModal" (click)="deleteModalDeviceId(devices.site_id)" style="margin-left:8px"></i>
+                                  </td>
+                              </tr>
+                                
+                            </tbody>
+                          </table>
+                        </div>
+                     </div>
+
+                     <div role="tabpanel" class="tab-pane" id="manage_tag">
+                       add tag
+                     </div>                         
+                   </div>
+
+
+				</div>
+			</div>
+		</div>
+
+  <!-- Add device Modal -->
+  <div class="modal fade" id="addDeviceModal" role="dialog">
+    <div class="modal-dialog">
+   
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Add Device</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="add-device-form"> 
+        <div class="modal-body" style="height:360px !important; overflow-y: auto"> 
+                   
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Device Id <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="DeviceId" [(ngModel)]="DeviceId" type="text" placeholder="Enter Device Id" class="form-control">
+                             <span class="text-danger" id="vldDeviceIdMess">{{vldDeviceIdMess}}</span> 
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Site Name <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="SiteName" [(ngModel)]="SiteName" type="text" placeholder="Enter Site Name" class="form-control">
+                            <span class="text-danger" id="vldSiteNameMess">{{vldSiteNameMess}}</span>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Top Right Lat <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="TopRightLat" [(ngModel)]="TopRightLat" type="text" placeholder="Enter Top Right Lat" class="form-control">
+                             <span class="text-danger" id="vldTopRightLatMess">{{vldTopRightLatMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Top Right Lng <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="TopRightLng" [(ngModel)]="TopRightLng" type="text" placeholder="Enter Top Right Lng" class="form-control">
+                             <span class="text-danger" id="vldTopRightLngMess">{{vldTopRightLngMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Bottom Left Lat <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="BottomLeftLat" [(ngModel)]="BottomLeftLat" type="text" placeholder="Enter Bottom Left Lat" class="form-control">
+                             <span class="text-danger" id="vldBottomLeftLatMess">{{vldBottomLeftLatMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Bottom Left Lng <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="BottomLeftLng" [(ngModel)]="BottomLeftLng" type="text" placeholder="Enter Bottom Left Lng" class="form-control">
+                             <span class="text-danger" id="vldBottomLeftLngMess">{{vldBottomLeftLngMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>City <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="City" [(ngModel)]="City" type="text" placeholder="Enter City" class="form-control">
+                             <span class="text-danger" id="vldCityMess">{{vldCityMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Region <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="Region" [(ngModel)]="Region" type="text" placeholder="Enter Region" class="form-control">
+                             <span class="text-danger" id="vldRegionMess">{{vldRegionMess}}</span> 
+                             <div class="alert alert-info" id="deviceRegMess" style="display: none; text-align: center; margin-top: 6px;">
+                               {{deviceRegMess}}
+                              </div>
+                        </div>
+                        
+                    </div>
+                        
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-primary" id="btnDeviceDisable" (click)="regDevice()">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+ <!-- Update device Modal content-->
+  <div class="modal fade" id="updateDeviceModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Update Device</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="update-device-form"> 
+        <div class="modal-body" style="height:360px !important; overflow-y: auto"> 
+                   
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Device Id</label>
+                            <input name="UpDeviceId" [(ngModel)]="UpDeviceId" type="text" disabled style="background-color:#ccc" class="form-control">
+                             <span class="text-danger" id="vldUpDeviceIdMess">{{vldUpDeviceIdMess}}</span> 
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Site Name <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpSiteName" [(ngModel)]="UpSiteName" type="text" class="form-control">
+                            <span class="text-danger" id="vldUpSiteNameMess">{{vldUpSiteNameMess}}</span>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Top Right Lat <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpTopRightLat" [(ngModel)]="UpTopRightLat" type="text" class="form-control">
+                             <span class="text-danger" id="vldUpTopRightLatMess">{{vldUpTopRightLatMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Top Right Lng <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpTopRightLng" [(ngModel)]="UpTopRightLng" type="text" class="form-control">
+                             <span class="text-danger" id="vldUpTopRightLngMess">{{vldUpTopRightLngMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Bottom Left Lat <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpBottomLeftLat" [(ngModel)]="UpBottomLeftLat" type="text" class="form-control">
+                             <span class="text-danger" id="vldUpBottomLeftLatMess">{{vldUpBottomLeftLatMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Bottom Left Lng <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpBottomLeftLng" [(ngModel)]="UpBottomLeftLng" type="text" class="form-control">
+                             <span class="text-danger" id="vldUpBottomLeftLngMess">{{vldUpBottomLeftLngMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>City <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpCity" [(ngModel)]="UpCity" type="text" class="form-control">
+                             <span class="text-danger" id="vldUpCityMess">{{vldUpCityMess}}</span> 
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Region <span style="color:#ff0000; font-size: 17px">*</span></label>
+                            <input name="UpRegion" [(ngModel)]="UpRegion" type="text" class="form-control">
+                             <span class="text-danger" id="vldUpRegionMess">{{vldUpRegionMess}}</span> 
+                             <div class="alert alert-info" id="deviceUpRegMess" style="display: none; text-align: center; margin-top: 6px;">
+                               {{deviceUpRegMess}}
+                              </div>
+                        </div>
+                        
+                    </div>
+                        
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-primary" id="btnUpDeviceDisable" (click)="updateDevice()">Update</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+ <!-- Delete User Modal content-->
+  <div class="modal fade" id="deleteDeviceModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Delete Device</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:60px !important;">
+            
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+        <form id="delete-device-form">                            
+                   <input name="DelDeviceId" [(ngModel)]="DelDeviceId" id="DelDeviceId" type="hidden">	
+                      
+                   <button type="button" id="deleteDevice" class="btn btn-primary" (click)="deleteDevice()">Delete</button>
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    
+        </form>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  </div>	
+</div>

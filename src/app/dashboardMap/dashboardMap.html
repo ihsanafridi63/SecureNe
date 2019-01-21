@@ -1,0 +1,115 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12" style="margin-top:20px;">
+      
+        <div class="col-lg-12">
+
+          <div class="widget card">
+            <div class="col-lg-12">
+             <!--  <a (click)="captureScreen()" style="margin-top: 25px; color:white;" class="btn btn-info btn-lg float-lg-right">
+                <span class="glyphicon glyphicon-export"></span> Dashboard
+              </a> -->
+            </div>
+
+            <form class="col-lg-12 ng-pristine ng-valid" id="">
+              <div class=" reporting-dashboard">
+
+                <div class="col-lg-6" style="float:left">
+
+
+                  <label class="control-label" style="font-size: 12px; color:#515365">SELECT STATE</label>
+                  <select  #w (change)="getSites(w.value)" class="form-control" style="" >
+                   <option value="">States..</option>
+                     <option *ngFor="let state of statesN"  [selected]="state==cityN" [value]="state">{{state}}</option>
+                     
+                    <!-- <option value="Distrito Federal">Distrito Federal</option>
+                    <option value="Aguascalientes">Aguascalientes</option>
+                    <option value="Baja California">Baja California</option>
+                    <option value="Baja California Sur">Baja California Sur</option>
+                    <option value="Campeche">Campeche</option>
+                    <option value="Chiapas">Chiapas</option>
+                    <option value="Chihuahua">Chihuahua</option>
+                    <option value="Coahuila">Coahuila</option>
+                    <option value="Colima">Colima</option>
+                    <option value="Durango">Durango</option>
+                    <option value="Guanajuato">Guanajuato</option>
+                    <option value="Guerrero">Guerrero</option>
+                    <option value="Hidalgo">Hidalgo</option>
+                    <option value="Jalisco">Jalisco</option>
+                    <option value="Mexico">M&eacute;xico</option>
+                    <option value="Michoacan">Michoac&aacute;n</option>
+                    <option value="Morelos">Morelos</option>
+                    <option value="Nayarit">Nayarit</option>
+                    <option value="Nuevo Leon">Nuevo Le&oacute;n</option>
+                    <option value="Oaxaca">Oaxaca</option>
+                    <option value="Puebla">Puebla</option>
+                    <option value="Queretaro">Quer&eacute;taro</option>
+                    <option value="Quintana Roo">Quintana Roo</option>
+                    <option value="San Luis Potosi">San Luis Potos&iacute;</option>
+                    <option value="Sinaloa">Sinaloa</option>
+                    <option value="Sonora">Sonora</option>
+                    <option value="Tabasco">Tabasco</option>
+                    <option value="Tamaulipas">Tamaulipas</option>
+                    <option value="Tlaxcala">Tlaxcala</option>
+                    <option value="Veracruz">Veracruz</option>
+                    <option value="Yucatan">Yucat&aacute;n</option>
+                    <option value="Zacatecas">Zacatecas</option> -->
+                  </select>
+
+                </div>
+                <!-- <div class="col-lg-4" style="float:left">
+
+
+                  <label class="control-label" style="font-size: 12px; color:#515365">SELECT CITY</label>
+                  <select name="value" #p (change)="getCities(p.value)" class="form-control" style="" id="siteValue">
+                    <option [value]="">States..</option>
+                    <option [value]="DIF">Ensenada</option>
+                    <option [value]="AGS">Mexicali</option>
+                    <option [value]="BCN">Punta Prieta</option>
+                  </select>
+
+                </div> -->
+                <div class="col-lg-6" style="float:left">
+
+
+                  <label class="control-label" style="font-size: 12px; color:#515365">SELECT FlIGHT</label>
+                  <select #t (change)="getSitesIdMap(t.value)" class="form-control" style="" id="siteValue">
+
+                    <option value="">Flights..</option>
+                    <option *ngFor="let sitesMap of sitesMap" [value]="sitesMap.site_id">{{sitesMap.site_name}}</option>
+                  </select>
+
+                </div>
+              </div>
+            </form>
+
+            
+              <div class="col-lg-12 col-md-12" style="padding: 0px; margin-top:40px">
+                <div class="col-lg-12 col-md-12">
+                  <div ng-app="mapApp" style="border:2px solid #ccc">
+                    <div ng-controller="MapController">
+                      
+                      <div id="googleMap" style="height: 650px; width: 100%"></div>
+                     
+                      <div id="tooltip"></div>
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+           
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+
+  <div class="alert alert-danger alert-dismissible Top-Right-Alert" style="display:none">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong id="AseetInv"></strong> 
+  </div>
+</div>
+ 
+

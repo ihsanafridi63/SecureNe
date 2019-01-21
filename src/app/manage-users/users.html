@@ -1,0 +1,250 @@
+<div class="container-fluid mrg-top-20">
+	<div class="page-title">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+			   <div class="card-heading border bottom">
+                 <h4 class="card-title">Manage Users</h4>
+               </div>
+                
+				<div class="card-block" style="min-height:450px">
+					<!-- <p>Sensors and Geofence Alerts</p> -->
+				<button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#addUserModal">
+				 Add User
+				</button>
+				<div id="users-spinner" style="margin:auto; width:100px; height:100px; position:absolute; top:0; bottom: 0; left:0; right:0">
+      	           <i class="fa fa-spin fa-spinner" style="font-size:100px"></i>
+      	        </div>
+					<div class="table-overflow">
+					 	
+						<table id="usersTable" class="table table-lg table-hover">
+							<thead>
+								<tr>
+									<th style="width:20%">Sr#</th>
+                  <th style="width:30%">Username</th>
+                  <th style="width:50%">Action</th>
+								</tr>
+							</thead>
+							<tbody style="display: none">
+								
+								<tr *ngFor="let user of usersed; let i = index">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{user.username}}
+                                    </td>
+                                    
+                                    <td style="">
+                                      
+                                        <i class="ti-pencil-alt" data-toggle="modal" data-target="#changePassUserModal" (click)="changePassword(user.username)"> Change Password</i>
+                                      
+                                        <i class="ti-clipboard" id="{{'user'+i}}" (click)="assignRoles(user.username)" style="margin-left: 20px" data-toggle="modal" data-target="#assignRolesUserModal"> Assign Roles</i>
+                                        
+                                        <i class="ti-eye" data-toggle="modal" data-target="#viewRolesUserModal" (click)="viewRoles(user.username)" style="margin-left: 20px"> View Roles</i>
+                                        
+                                        <i class="ti-trash" id="{{'user'+i}}" (click)="deleteModalUserName(user.username)" style="margin-left: 20px" data-toggle="modal" data-target="#deleteUserModal"> Delete</i>
+                                      
+                                    </td>
+                                </tr>
+									
+							</tbody>
+						</table>
+					</div>
+				   
+				</div>
+			</div>
+		</div>
+
+  <!-- Add User Modal -->
+  <div class="modal fade" id="addUserModal" role="dialog">
+    <div class="modal-dialog">
+   
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Add User</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="add-user-form"> 
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">                                 
+                   <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Username <span style="color:#ff0000; font-size: 17px">*</span></label>
+                           
+                            <input required name="username" [(ngModel)]="username" type="text" placeholder="Username." class="form-control">
+                             <span class="text-danger" id="vldUsernameMess">{{vldUsernameMess}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <div class="col-lg-12" style="padding: 0px">
+                             <span *ngFor="let rol of roles; let i=index">
+                               <input type="checkbox" value="{{rol.role}}"> {{rol.role}} <br/>  
+                             </span>
+                            </div>
+                            <div class="alert alert-info" style="display: none; text-align: center; margin-top: 6px" id="regMess">
+                               {{regMess}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                       
+            
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-primary" (click)="regUser()">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- change Password Modal -->
+  <div class="modal fade" id="changePassUserModal" role="dialog">
+    <div class="modal-dialog"> 
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Change Password</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="change-password-form"> 
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">                                 
+                   <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Username <span style="color:#ff0000; font-size: 17px">*</span></label>
+                           
+                            <input required name="username" [(ngModel)]="username" type="text" placeholder="Username." class="form-control">
+                             <span class="text-danger" id="vldUsernameMess">{{vldUsernameMess}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <div class="col-lg-12" style="padding: 0px">
+                             <span *ngFor="let rol of roles">
+                               <input type="radio" name="role" [(ngModel)]="role" value="{{rol.role}}"> {{rol.role}} <br/>  
+                             </span>
+                            </div>
+                            <div class="alert alert-info" style="display: none; text-align: center; margin-top: 6px" id="pChangeMess">
+                                 {{pChangeMess}}
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-primary" (click)="regUser()">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+    <!-- Assign Roles Modal -->
+  <div class="modal fade" id="assignRolesUserModal" role="dialog">
+    <div class="modal-dialog"> 
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Assign Roles</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="assign-roles-form"> 
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">                                 
+                   <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input disabled name="assignUsername" [(ngModel)]="assignUsername" type="text" placeholder="Username." class="form-control" style="background-color: #ccc">
+                             <span class="text-danger" id="vldUsernameMess">{{vldUsernameMess}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Assign Role</label>
+                            <div class="col-lg-12" style="padding: 0px">
+                             <span *ngFor="let rol of AssignRoles">
+                               <input type="checkbox" id="{{rol.id}}" value="{{rol.role}}"> {{rol.role}} <br/>  
+                             </span> 
+                            </div>
+                            <div class="alert alert-info" style="display: none; text-align: center; margin-top: 6px" id="assignMess">
+                                 {{assignMess}}
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-primary" (click)="regUser()">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+ <!-- View Roles Modal -->
+  <div class="modal fade" id="viewRolesUserModal" role="dialog">
+    <div class="modal-dialog"> 
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">{{RoleUsername+' Roles'}}</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="view-roles-form"> 
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">                                 
+                   
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="col-lg-12" style="padding: 0px">
+                               <ol type="1" style="padding: 0px 8px">
+                                <li *ngFor="let roless of userRoless">
+                                   {{roless.role}}
+                                </li>
+                              </ol>
+                           </div>
+                    </div>
+                  </div>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+
+ <!-- Delete User Modal content-->
+  <div class="modal fade" id="deleteUserModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 8px; background-color: #3366ff">
+          <span style="font-size: 19px; color: #f9f9f9">Delete User</span>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:60px !important;">
+             
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+        <form id="delete-user-form">                            
+                   <input name="userNameDel" [(ngModel)]="userNameDel" id="userNameDel" type="hidden">	                     
+                   <button type="button" id="deleted" class="btn btn-primary" (click)="deleteUser()">Delete</button>
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    
+        </form>         
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  </div>	
+</div>

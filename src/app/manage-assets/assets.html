@@ -1,0 +1,263 @@
+<div class="container-fluid mrg-top-20" >
+	 <div class="page-title">
+        <!-- <h4>Register Luggage</h4> -->
+    </div>
+
+   
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="detail-header">
+                  <div class="card-heading border bottom">
+                   <h4 class="card-title">Manage Assets</h4>
+                  </div>
+                </div>
+                <div class="detail-header">
+                  <ul class="nav nav-tabs" role="tablist" style="">
+                    <li class="nav-item" style="">
+                      <a href="#add_asset" class="active" aria-controls="add_asset" role="tab" data-toggle="tab">Add Asset </a>
+                    </li>
+                    <li class="nav-item" style="">
+                      <a href="#remove_asset" aria-controls="remove_asset" role="tab" data-toggle="tab">Remove Asset</a>
+                    </li>
+                    <li class="nav-item" style="">
+                      <a href="#in_transit_asset" aria-controls="in_transit_asset" role="tab" data-toggle="tab">In-Transit</a>
+                    </li> 
+                    <li class="nav-item" style="">
+                      <a href="#check_out" aria-controls="check_out" role="tab" data-toggle="tab">Check-out</a>
+                    </li>
+                  </ul>
+                 </div>
+                <div class="card-block" style="">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12 ml-auto mr-auto" >
+                              
+                              <div class="tab-content" style="">
+                                 <div role="tabpanel" class="tab-pane active" id="add_asset">
+                                   <form id="add-asset-form">
+                                        <div class="reg_lug_main">
+                                        <div class="row appended">
+                                             
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Asset Inventory No. <span style="color:#ff0000; font-size: 17px">*</span></label>
+                                                   
+                                                    <input required="required" name="InventoryNo" [(ngModel)]="InventoryNo" type="text" placeholder="Asset Inventory No." class="form-control">
+                                                    <span class="text-danger" id="vldInventoryNoMess">{{vldInventoryNoMess}}</span>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Asset Type</label>
+                                                        <input required="required" name="AssetType" [(ngModel)]="AssetType" type="text" placeholder="Asset Type" class="form-control">  
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Asset Brand</label>
+                                                    <input name="AssetBrand" [(ngModel)]="AssetBrand" type="text" placeholder="Asset Brand" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Asset Owner Name</label>
+                                                       <input required="required" name="AssetOwnerName" [(ngModel)]="AssetOwnerName" type="text" placeholder="Asset Owner Name" class="form-control">   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Asset Owner Type</label>
+                                                   
+                                                    <input required="required" name="AssetOwnerType" [(ngModel)]="AssetOwnerType" type="text" placeholder="Asset Owner Type" class="form-control">
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Assign Tag <span style="color:#ff0000; font-size: 17px">*</span></label>
+                                                        <select name="ta" [(ngModel)]="ta" class="form-control" style="padding-top: 12px; height: 42px;" id="tagDisable">
+                                                            <option [ngValue]="undefined">Select Assign Tag</option>
+                                                            <option *ngFor="let tags of tagss"   [value]="tags.tag_id">{{tags.tag_name}}</option>
+                                                        </select> 
+                                                        <span class="text-danger" id="vldTaMess">{{vldTaMess}}</span>  
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Assign Site <span style="color:#ff0000; font-size: 17px">*</span></label>
+                                                        <select name="sit" [(ngModel)]="sit"  class="form-control" style="padding-top: 12px; height: 42px;" id="siteDisable">
+
+                                                            <option [ngValue]="undefined">Select Assign Site</option>
+                                                            <option *ngFor="let sites of sites"   [value]="sites.values.site_id">{{sites.values.site_name}}</option>
+                                                        </select>   
+                                                        <span class="text-danger" id="vldSitMess">{{vldSitMess}}</span>
+                                                </div>
+                                            </div>
+                                            
+                                           
+                                            <div class="col-lg-12" style="display: none" id="regMess">
+                                               <div class="alert alert-info" style="text-align: center">
+                                                 {{regMess}}
+                                               </div>
+                                           </div>
+                                            <div class="col-lg-12">
+                                                <div class="text-right">
+                                                   
+                                                    <button (click)="regLuggage()" class="btn btn-primary" id="btnDisable">Add</button>
+                                                    
+                                            </div>
+                                           </div>
+                                            
+                                        </div>
+                                       </div>
+                                       
+                                    </form>
+                                 </div>
+                                 <div role="tabpanel" class="tab-pane" id="remove_asset">
+                                  <div class="col-md-6 ml-auto mr-auto"> 
+                                   <div style="display:none" id="remMess">
+                                    <div class="alert alert-info" style="text-align: center">                              
+                                      {{remMess}}
+                                    </div>
+                                    </div>
+                                    <form action="#" id="remove-lug-form">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Sites</label>
+                                                
+                                                <select #Rt (change)="getRemoveAssets(Rt.value)" id="selectPnr" class="pnrs form-control" style="padding-top: 12px">
+
+                                                    <option value="">Select Site..</option>
+                                                    <option *ngFor="let sites of RemoveSites" [value]="sites.values.site_id">{{sites.values.site_name}}</option>
+                                                </select> 
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Assets</label>
+                                                    
+                                                <select #l  class="form-control" style="width:100%" id="RemoveAssets">
+                                                    <option value="">Select Asset..</option>
+                                                    <option *ngFor="let assets of RemoveAssetss" [value]="assets.asset_inventory_no">{{assets.asset_inventory_no}}</option>
+                                                </select>   
+                                                </div>
+                                            </div> 
+                                            
+                                        </div>
+
+                                        
+                                       
+                                        <div class="row">
+                                                                               
+                                            <div class="col-md-12 col-xs-12">
+                                            
+                                                <div class="text-center mrg-top-5">
+                                                    <button (click)="removeAsset(l.value)" type="submit" id="btnRemove" class="btn btn-primary">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                  </div>
+                                 </div>
+                                 <div role="tabpanel" class="tab-pane" id="in_transit_asset"> 
+                                    <div class="col-md-4 ml-auto mr-auto">
+                                      <div style="display: none" id="inMess">
+                                       <div class="alert alert-info" style="text-align: center">                            
+                                         {{inMess}}
+                                       </div>
+                                       </div>
+                                       
+                                        <form action="#" id="intransit-lug-form">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Sites</label>
+                                                    
+                                                    <select id="selectPnr" class="pnrs form-control" style="padding-top: 12px">
+
+                                                            <option value="">Select Site..</option>
+                                                            <option *ngFor="let sites of intransitSites"   [value]="sites.values.site_id">{{sites.values.site_name}}</option>
+                                                        </select> 
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+
+                                            
+                                           
+                                            <div class="row">
+                                            
+                                            
+                                                <div class="col-md-12 col-xs-12">
+                                                
+                                                    <div class="text-center mrg-top-5">
+                                                        <button (click)="intransitAssets()" id="btnIntransit" type="submit" class="btn btn-primary">In-Transit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                     </div>
+                                 </div>
+                                 <div role="tabpanel" class="tab-pane" id="check_out"> 
+                                    <div class="col-md-6 ml-auto mr-auto">
+                                      <div style="display:none" id="outMess">
+                                        <div class="alert alert-info" style="text-align: center">                              
+                                          {{outMess}}
+                                        </div>
+                                      </div>
+                                        <form action="#" id="remove-lug-form">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Sites</label>
+                                                    
+                                                    <select #To (change)="getOutAssets(To.value)" id="selectPnr" class="pnrs form-control" style="padding-top: 12px">
+
+                                                            <option value="">Select Site..</option>
+                                                            <option *ngFor="let sites of OutSites"   [value]="sites.values.site_id">{{sites.values.site_name}}</option>
+                                                        </select> 
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Assets</label>
+                                                        
+                                                    <select name="invNo" [(ngModel)]="invNo" class="form-control" style="width:100%" id="OutAssets">
+                                                        <option [ngValue]="undefined">Select Asset..</option> 
+                                                        <option *ngFor="let assets of OutAssetss" [value]="assets.asset_inventory_no">{{assets.asset_inventory_no}}</option>    
+                                                    </select>   
+                                                    </div>
+                                                </div>
+                                            
+                                                
+                                            </div>
+
+                                            
+                                           
+                                            <div class="row">
+                                            
+                                            
+                                                <div class="col-md-12 col-xs-12">
+                                                
+                                                    <div class="text-center mrg-top-5">
+                                                        <button (click)="outAsset()" id="btnOut" type="submit" class="btn btn-primary">Check-out</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                     </div>
+                                 </div>
+                              </div>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>	
+		
+</div>

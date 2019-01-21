@@ -1,0 +1,827 @@
+<div class="container-fluid" >
+
+    <div class="row">
+
+      
+    <div class="col-lg-8 col-md-12 select-info" style="padding: 0px; margin-top: -5px;">
+        
+        <div class="col-lg-5 col-md-5 col-sm-10 col-10" style="display: inline-block; width:100%">
+            <select #t (change)="getAssetsAnalyticsss(t.value)" class="form-control" style="width:100%" id="siteValue">
+                <option value="">Select Site</option>
+                <option *ngFor="let sites of sites"  [selected]="sites.values.site_id==idUrl" [value]="sites.values.site_id">{{sites.values.site_name}}</option>
+            </select>	
+		</div>
+
+		<div class="col-lg-2 col-md-2 col-sm-2 col-2" style="display: inline-block; width:100%; padding: 0px; padding-top: 5px">
+		  <i id="spinner" class="fa fa-spin" style="font-size:24px"></i>
+		  <span style="color:red; display: none" id="siteStatus">Link Down <img src="assets/images/sitestatus.png"></span>
+		</div>
+		
+	    <div class="col-lg-5 col-md-5 col-sm-10 col-10" style="display: inline-block; width:100%; margin-top: 10px">
+            <select #a (change)="getAssetsAnalyticsAndInfo(a.value)" class="form-control" style="width:100%" id="assets">
+		      	<option value="">Select Asset</option>
+                <option *ngFor="let assets of assets" [value]="assets.asset_inventory_no">{{assets.asset_inventory_no}}</option>
+	      	</select>
+	    </div>
+       
+       <div class="col-lg-12 col-md-12" style="margin-top: 4px">
+	      <div class="common-box">
+	        <h6 class="common-h6"><img src='assets/images/analytics.png'>SITE ANALYTICS</h6>
+	        <div class="luggage_location"> 
+	        <div>
+	           <!-- <form-wizard></form-wizard> -->
+	           
+				  <div id="shipping-form" class="width-100" method="get" novalidate="novalidate">
+				   
+				    <div id="rootwizard" class="form-wizard col-md-12 ml-auto mr-auto" style="padding: 0px">
+				        <ul class="nav nav-pills nav-fill">
+				            <li class="nav-item" style="text-align: left">
+				                <a href="#step1" data-toggle="modal" class="status-anc">
+				                    <span class="step stepCount1">
+				                         <span style="" id="stepACount1" class="stepACount" data-toggle="modal" (click)="analyticsCheck()" data-target="#checkModal">
+					                      	 0
+					                      </span>
+					                      <span style="" id="stepMCount1" class="stepMCount" data-toggle="modal" (click)="analyticsCheckMs()" data-target="#checkModalMs">
+					                      	 0
+					                      </span>         
+				                    </span>
+				                    <span class="title status-title text-center">Check-in</span>
+				                </a>
+				            </li>
+				            <li class="nav-item" style="text-align: center;">
+				                <a href="#step2" data-toggle="modal" class="status-anc">
+				                    <span class="step stepCount2">
+				                      <span style="" id="stepACount2" class="stepACount" data-toggle="modal" (click)="analyticsTransfer()" data-target="#transferModal">
+				                      	 0
+				                      </span>
+				                      <span style="" id="stepMCount2" class="stepMCount" data-toggle="modal" (click)="analyticsTransferMs()" data-target="#transferModalMs">
+				                      	 0
+				                      </span>
+				                    </span>
+				                    <span class="title status-title text-center">Transfer Loading</span>
+				                </a>
+				            </li>
+				            <li class="nav-item" style="text-align: center; margin-right: 5%; margin-left: 6%">
+				                <a href="#step3" data-toggle="modal" class="status-anc">
+				                    <span class="step stepCount3">
+				                     <span style="" id="stepACount3" class="stepACount" data-toggle="modal" (click)="analyticsTransit()" data-target="#transitModal">
+				                      	 0
+				                      </span>
+				                      <span style="" id="stepMCount3" class="stepMCount" data-toggle="modal" (click)="analyticsTransitMs()" data-target="#transitModalMs">
+				                      	 0
+				                      </span>
+				                    </span>
+				                    <span class="title status-title text-center">In-Transit</span>
+				                </a>
+				            </li>
+				            <li class="nav-item" style="text-align: center;">
+				                <a href="#step4" data-toggle="modal" class="status-anc">
+				                    <div class="step stepCount4">
+				                     <span style="" id="stepACount4" class="stepACount" data-toggle="modal" (click)="analyticsOff()" data-target="#offModal">
+				                      	 0
+				                      </span>
+				                      <span style="" id="stepMCount4" class="stepMCount" data-toggle="modal" (click)="analyticsOffMs()" data-target="#offModalMs">
+				                      	 0
+				                      </span>
+				                      
+				                    </div>
+				                    <span class="title status-title text-center">Off-loading</span>
+				                </a>
+				            </li>
+				            <li class="nav-item" style="text-align: right;">
+				                <a href="#step5" data-toggle="modal" class="status-anc">
+				                    <span class="step stepCount5">
+				                      <span style="" id="stepACount5" class="stepACount" data-toggle="modal" (click)="analyticsClaim()" data-target="#claimModal">
+				                      	 0
+				                      </span>
+				                      <span style="" id="stepMCount5" class="stepMCount" data-toggle="modal" (click)="analyticsClaimMs()" data-target="#claimModalMs">
+				                      	 0
+				                      </span>
+				                      
+				                    </span>
+				                    <span class="title status-title text-center">Baggage Claim</span>
+				                </a>
+				            </li>
+				            <li class="nav-item" style="text-align: right;">
+				                <a href="#step6" data-toggle="modal" (click)="analyticsOut()" data-target="#outModal" class="status-anc">
+				                    <span class="step stepCount6" style="line-height:54px">
+				                       0 				                    
+				                    </span>
+				                    <span class="title status-title text-center">Check-out</span>
+				                </a>
+				            </li>
+				        </ul>
+				        <div id="bar" class="progress progress-info" style="width: 95%">
+				            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+				        </div>
+
+				    </div>
+				  </div>
+
+			</div>
+			</div>
+	      </div>
+      </div>
+     </div>
+     
+      <div class="col-lg-4 col-md-12" style="padding:0px; margin-top: 6px">
+        <div class="col-lg-12">
+         <div class="common-box">
+	        <h6 class="common-h6"><img src='assets/images/summary.png'>SITE SUMMARY</h6>
+          <div id="piechart" style="border: 2px solid #ccc; position: relative; min-height: 174px; background-color: #fff">
+          	<div id="pie-spinner" style="margin:auto; width:50px; height:50px; position:absolute; top:0; bottom: 0; left:0; right:0">
+  	         <i class="fa fa-spin fa-spinner" style="font-size:50px"></i>
+  	        </div>
+
+          </div>
+          </div>
+        </div>
+      </div>
+     <!--  <div class="col-lg-6 select-filter mrg-top-10">
+        <div class="col-lg-12 text-right">
+        <div style="display: inline-block;">
+	      		<select #l (change)="luggageInfo(l.value)" class="form-control" style="padding-top: 12px">
+			      	<option value="">Luggages..</option>
+                    <option *ngFor="let luggage of luggages.luggages"  [value]="luggage.luggage_name">{{luggage.luggage_name}}</option>
+		      	</select>
+      	</div>
+      	<div class="" style="display: inline-block;">
+      	    <a class="btn btn-primary" href="javascript:void()" style="padding: 8px 14px; margin-left: 8px;">
+      	     <span>Setting</span>
+      	    </a>
+      	</div>
+       </div>
+      </div> -->
+    </div>
+
+    <div class="row">  
+
+     <div class="col-lg-8 col-md-12" style="padding: 0px; margin-top:4px">
+      <div class="col-lg-12 col-md-12">
+        <div class="common-box">
+	    <h6 class="common-h6"><img src='assets/images/monitoring.png'>REAL TIME MONITORING</h6>
+		<div ng-app="mapApp" style="border:2px solid #ccc">
+		  <div ng-controller="MapController">
+		    <div id="googleMap" style="height: 229px; width: 100%"></div>
+		  </div>
+		</div>
+		</div>
+	   </div>
+     </div>
+     <div class="col-lg-4 col-md-12 dashboard-form-main" style="display: inline-block; width:100%; margin-top: 4px">
+        <div class="common-box">
+	    <h6 class="common-h6"><img src='assets/images/information.png'>SITE INFORMATION</h6>
+        <div class="luggage_information" style="padding-right: 0px">
+        <form class="form-inline">
+            <div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Site Id</label>
+				    <input type="text" disabled="disabled" placeholder="Site Id" class="col-sm-12 mrg-btm-10 form-control" value="{{siteInfo.values.site_id}}">
+				</div>
+			</div>
+			 <div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Site Name</label>
+				    <input type="text" disabled="disabled" placeholder="Site Name" class="col-sm-12 mrg-btm-10 form-control" value="{{siteInfo.values.site_name}}">
+				</div>
+			</div>
+      	    <div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Top Right Bound</label>
+				    <input type="text" disabled="disabled" placeholder="Top Right Bound" class="col-sm-12 mrg-btm-10 form-control" value="{{siteInfo.values.top_right_lat}}{{singleComma }}{{ siteInfo.values.top_right_lng}}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Bottom Left Bound</label>
+				    <input type="text" disabled="disabled" placeholder="Bottom Left Bound" class="col-sm-12 mrg-btm-10 form-control" value="{{siteInfo.values.bottom_left_lat}}{{singleComma }}{{ siteInfo.values.bottom_left_lng}}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">City, Region</label>
+				    <input type="text" disabled="disabled" placeholder="City, Region" class="col-sm-12 mrg-btm-10 form-control" value="{{siteInfo.values.city}}{{singleComma }}{{ siteInfo.values.region}}">
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">No Of Registered Assets</label>
+				    <input type="text" disabled="disabled" placeholder="Registered Assets" class="col-sm-12 mrg-btm-10 form-control" value="{{CountAssetsInSites}}">
+				</div>
+			</div>
+		
+		</form>
+		</div>
+		</div>
+	   </div>
+
+
+    </div>
+
+  <div class="row" style="">
+
+     <div class="col-lg-4 col-md-12 dashboard-form-main" style="display: inline-block; width:100%; margin-top: 4px">
+        <div class="common-box">
+	    <h6 class="common-h6"><img src='assets/images/information.png'>ASSET INFORMATION</h6>
+        <div class="luggage_information" style="padding-right: 0px">
+        <form class="form-inline">
+            <div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Asset Inventory No.</label>
+				    <input type="text" disabled="disabled" placeholder="Asset Inventory No." class="col-sm-12 mrg-btm-10 form-control" value="{{assetInfo.values.asset_inventory_no}}">
+				</div>
+			</div>
+      	    <div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Asset Type</label>
+				    <input type="text" disabled="disabled" placeholder="Asset Type" class="col-sm-12 mrg-btm-10 form-control" value="{{assetInfo.values.asset_type}}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Asset Brand</label>
+				    <input type="text" disabled="disabled" placeholder="Asset Brand" name="total_bags" class="col-sm-12 mrg-btm-10 form-control" value="{{assetInfo.values.asset_brand}}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Asset Owner Name</label>
+				    <input type="text" disabled="disabled" placeholder="Asset Owner Name" name="total_bags" class="col-sm-12 mrg-btm-10 form-control" value="{{assetInfo.values.asset_owner_name}}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Asset Owner Type</label>
+				    <input type="text" disabled="disabled" placeholder="Asset Owner Type" name="total_bags" class="col-sm-12 mrg-btm-10 form-control" value="{{assetInfo.values.asset_owner_type}}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6" style="padding-left:0px">
+				<div class="form-group">
+				    <label class="control-label headcolor">Entry Date/Time</label>
+				    <input type="text" disabled="disabled" placeholder="Entry Date/Time" name="total_bags" class="col-sm-12 mrg-btm-10 form-control" value="{{assetInfo.values.entry_date_time}}">
+				</div>
+			</div>
+			
+
+		</form>
+		</div>
+		</div>
+	 </div>
+
+        <div class="col-lg-4 col-md-12" id="status" style="padding:0px; margin-top: 4px;">
+        <div class="col-lg-12">
+        <div class="common-box">
+	    <h6 class="common-h6" style="font-size: 12px"><img src='assets/images/state.png'>ASSETS STATES</h6>
+          
+          <div class="status-content">
+		   <!-- <h2 class="status-title">Assets States</h2> -->
+		   <div class="table-responsive">
+	       <table id="stateTable" class="table" border="1px" style="margin-bottom:0px; border-color: #ccc">
+	        <thead>
+	        	<tr>
+		           <th style="max-width: 65px;">Asset Inventory No.</th>
+		           <th>State</th>
+		           <th>Time</th>
+	          </tr>
+	        </thead>
+	        <tbody class="state_body">
+
+	        </tbody>
+	       </table>
+	       </div>
+	       </div>
+        </div>
+      </div>
+      </div>
+
+     
+      <div class="col-lg-4 col-md-12 luggage-alerts" style="padding: 0px; margin-top: 4px">
+        <div class="col-lg-12">
+         <div class="common-box">
+	     <h6 class="common-h6"><img src='assets/images/alerts.png'>ALERTS</h6>
+      	      <div  class="scroll-alerts">
+      	      <div id="alerts-spinner" style="margin:auto; width:50px; height:50px; position:absolute; top:0; bottom: 0; left:0; right:0">
+      	         <i class="fa fa-spin fa-spinner" style="font-size:50px"></i>
+      	      </div>             
+      	      <div *ngFor="let alertsAsset of assetAndAlertobj">
+      	          <div *ngIf="alertsAsset.state  == 'Check-in'">
+		      	  	<div class="alert alert-common alerts-info">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Check-in Missing'">
+		      	  	<div class="alert alert-common alerts-danger">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		      	  <div *ngIf="alertsAsset.state  == 'Transfer Loading'">
+		      	  	<div class="alert alert-common alerts-success">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Transfer Loading Missing'">
+		      	  	<div class="alert alert-common alerts-danger">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'In-Transit'">
+		      	  	<div class="alert alert-common alerts-warning">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+			      	    
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'In-Transit Missing'">
+		      	  	<div class="alert alert-common alerts-danger">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+			      	    
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Off-loading'">
+		      	  	<div class="alert alert-common alerts-successGreen">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Off-loading Missing'">
+		      	  	<div class="alert alert-common alerts-danger">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Baggage Claim'">
+		      	  	<div class="alert alert-common alerts-infoBlue">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Baggage Claim Missing'">
+		      	  	<div class="alert alert-common alerts-danger">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          <div *ngIf="alertsAsset.state  == 'Check-out'">
+		      	  	<div class="alert alert-common alerts-successLightGreen">
+			      	    <p style="text-align: left">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+			      	    </p>
+			      	    <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+		      	    </div>
+		          </div>
+		          
+		          <div *ngIf="alertsAsset.state == 'Link Down'">
+                      <div class="alert alerts-gray alert-common">
+                          <p style="text-align: left">
+                              <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+                              <span style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+                          </p>
+                          <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+                      </div>
+                  </div>
+                  <div *ngIf="alertsAsset.state == 'Link Up'">
+                      <div class="alert alerts-successDarkGreen alert-common">
+                          <p style="text-align: left">
+                              <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+                              <span style="display: inline-block; margin-left: 10px">{{alertsAsset.siteInv}}: {{alertsAsset.state}}</span>
+                          </p>
+                          <p style="text-align: right">
+			      	      <!-- <span>PNR LUGGAGE BAG1/BAG2 </span> -->
+			      	      <span  style=""><i class="ti-alarm-clock"></i> {{alertsAsset.timestamp | date: 'yyyy/MM/dd h:mm:ss a' }}</span>
+			      	    </p>
+                      </div>
+                  </div>
+	      	
+	      	</div>
+  
+         </div>
+         </div>
+         </div>
+      </div>
+     
+    </div>
+               
+<div class="alert alert-dismissible Top-Right-Alert" style="display:none; background-color: orange">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong id="AseetInv" style="color:#fff"></strong> 
+</div> 
+<div class="container">
+  
+  <!-- Trigger the modal with a button -->
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="transferModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table  class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagReg">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    <!-- Modal -->
+  <div class="modal fade" id="transferModalMs" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table  class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagRegMs">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+   <!-- Modal -->
+  <div class="modal fade" id="offModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table  class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagSto">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+     <!-- Modal -->
+  <div class="modal fade" id="offModalMs" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table  class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagStoMs">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+     <!-- Modal -->
+  <div class="modal fade" id="checkModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagUnd">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="checkModalMs" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagUndMs">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+     <!-- Modal -->
+  <div class="modal fade" id="claimModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagInt">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+       <!-- Modal -->
+  <div class="modal fade" id="claimModalMs" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagIntMs">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+       <!-- Modal -->
+  <div class="modal fade" id="outModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagOut">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="transitModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagUna">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+       <!-- Modal -->
+  <div class="modal fade" id="transitModalMs" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 1px solid #ccc; padding-bottom: 15px; background-color: #3366ff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="height:300px !important; overflow-y: auto">
+           <table class="table table-bordered">
+              <thead>
+              	<tr>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Asset Inventory No.</th>
+              		<th style="border-bottom: 0px; padding-bottom: 0px; border-top:0px !important">Tag Name</th>
+              	</tr>
+              </thead>
+               <tbody id="invTagUnaMs">
+              	 
+              </tbody>
+           	
+           </table>
+        </div>
+        <div class="modal-footer" style="padding: 8px 15px !important; background-color: #3366ff">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
+
+
+
